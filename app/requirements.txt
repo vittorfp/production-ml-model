@@ -1,8 +1,9 @@
 marshmallow==3.0.0b7
 flask
 wheel
-bson
-mongoengine
-mongoengine_goodjson
 pytest
 pytest-flask
+psycopg2-binary
+shapely
+numpy
+scikit-learn
