@@ -4,3 +4,5 @@ wheel
 bson
 mongoengine
 mongoengine_goodjson
+pytest
+pytest-flask
