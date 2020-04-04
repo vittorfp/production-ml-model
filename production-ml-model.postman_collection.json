@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "324eac1e-6fd1-4931-8f50-483e8e9ca76a",
+		"name": "production-ml-model",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/predict",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/predict?lat=-30&lon=-45",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"predict"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "-30",
+							"description": "between -90 and 90"
+						},
+						{
+							"key": "lon",
+							"value": "-45",
+							"description": "between -180 and 180"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

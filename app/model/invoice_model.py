@@ -9,7 +9,6 @@ lr = pickle.load('model.pkl')
 model_pipeline = Pipeline([scale, lr])
 
 
-
 class InvoiceModel:
 
     def __init__(self, lat, lon):
@@ -17,7 +16,7 @@ class InvoiceModel:
 
         # query the data
 
-        self.X = np.array([])
+        self.X = np.array([lat, lon])
 
     def predict(self):
         return model_pipeline.predict(self.X)

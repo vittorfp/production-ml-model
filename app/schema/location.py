@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields
 from marshmallow.validate import Range
 
+
 class Location(Schema):
     class Meta:
         unknown = 'raise'

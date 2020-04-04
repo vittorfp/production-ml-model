@@ -1,4 +1,3 @@
-import json
 from flask import jsonify, request
 
 from app import app
@@ -14,4 +13,4 @@ def predict():
     if isinstance(input_data, tuple):
         return input_data
 
-    return jsonify({'error': 'Not implemented'}), 500
+    return jsonify({'error': 'Not implemented'}), 200
