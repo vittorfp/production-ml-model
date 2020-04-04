@@ -7,7 +7,7 @@ class Location(Schema):
         unknown = 'raise'
 
     lat = fields.Number(required=True, validate=Range(min=-90, max=90))
-    lon = fields.Number(required=True, validate=Range(min=-180, max=180))
+    lng = fields.Number(required=True, validate=Range(min=-180, max=180))
 
 
 location_schema = Location()
