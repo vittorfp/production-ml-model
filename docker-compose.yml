@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  campifarma-ml-model:
+    image: campifarma-ml-repository:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongodb:27017/campifarma_db
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/usr/src/app
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/usr/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/usr/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+networks:
+  default:
+    name: api
