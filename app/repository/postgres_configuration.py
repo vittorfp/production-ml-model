@@ -10,7 +10,7 @@ class PostgresConnection:
                 password="mudar123",
                 host="postgres",
                 port="5432",
-                database="model_data"
+                database="postgres"
             )
         except Exception as error:
             print("Error connecting to Postgres: ", error)
