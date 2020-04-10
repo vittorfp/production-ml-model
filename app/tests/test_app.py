@@ -77,3 +77,20 @@ def test_input_boundary_9(client):
     """ Lon in the boundary (upper) """
     response = client.get('/predict', query_string={'lng': 180, 'lat': -77})
     assert response.status_code != 422
+
+
+def test_output_1(client):
+    """ All the expected fields exist in the output """
+    response = client.get('/predict', query_string=BaseInputs.campinas)
+    expected_fields = ["latitude", "longitude", "n_grandes_concorrentes", "n_pequeno_varejista", "predicao"]
+    assert response.status_code != 500
+    assert response.status_code != 422
+    for k in expected_fields:
+        assert k in response.json
+
+def test_output_2(client):
+    """ The latitude and longitude fields are the same as passed in input """
+    response = client.get('/predict', query_string=BaseInputs.campinas)
+    assert response.status_code == 200
+    assert response.json['latitude'] == BaseInputs.campinas['lat']
+    assert response.json['longitude'] == BaseInputs.campinas['lng']
