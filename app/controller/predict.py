@@ -9,9 +9,10 @@ from app.repository.geoprocessing_helper import GeoHelper
 from app.model.city_checker import CityChecker
 
 
-db = DataRepository()
-geo = GeoHelper(db)
-city = CityChecker('./app/resources/campinas.wkt')
+geo = GeoHelper(radius=1000)
+db = DataRepository(file='./app/resources/pois.csv')
+city = CityChecker(file='./app/resources/campinas.wkt')
+model = InvoiceModel(file='./app/model/model_campifarma.pickle')
 
 
 @app.route('/predict', methods=['GET'])
@@ -33,7 +34,7 @@ def predict():
         response = dict(
             latitude=input_data['lat'],
             longitude=input_data['lng'],
-            predicao=InvoiceModel().predict(data)[0],
+            predicao=model.predict(data)[0],
             n_pequeno_varejista=int(data['concorrentes__pequeno_varejista'].values[0]),
             n_grandes_concorrentes=int(data['concorrentes__grandes_redes'].values[0])
         )

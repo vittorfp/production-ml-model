@@ -10,8 +10,8 @@ class DataRepository:
         'minhas_lojas', 'agencia_bancaria', 'padaria', 'acougue', 'restaurante', 'correio', 'loterica'
     }
 
-    def __init__(self):
-        self.data = pd.read_csv('./app/resources/pois.csv')
+    def __init__(self, file):
+        self.data = pd.read_csv(file)
 
     def get_points_inside_isocota(self, isocota):
         min_lng, min_lat, max_lng, max_lat = isocota.bounds

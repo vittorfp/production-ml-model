@@ -6,9 +6,8 @@ from shapely.ops import transform
 
 class GeoHelper:
 
-    def __init__(self, db):
-        self.db = db
-        self.radius = 1000
+    def __init__(self, radius):
+        self.radius = radius
 
     @staticmethod
     def lat_lng_to_utm(lat_lng_geom):
