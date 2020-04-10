@@ -1,8 +1,7 @@
-import numpy as np
 import pandas as pd
 from collections import Counter
 from shapely.geometry import Point
-from .geoprocessing_helper import GeoHelper
+
 
 class DataRepository:
 
@@ -39,4 +38,4 @@ class DataRepository:
             if i not in df_data:
                 df_data[i] = 0
 
-        return df_data
+        return df_data[sorted(df_data.columns)]

@@ -1,4 +1,3 @@
-import pickle
 import pyproj
 from functools import partial
 from shapely.geometry import Point
@@ -32,7 +31,7 @@ class GeoHelper:
         return lat_lng_geom
 
     def generate_isocota(self, point, radius):
-        utm_radius = self.lat_lng_to_utm(point).buffer(self.radius)
+        utm_radius = self.lat_lng_to_utm(point).buffer(radius)
         lat_lng_radius = self.utm_to_lat_lng(utm_radius)
         return lat_lng_radius
 
