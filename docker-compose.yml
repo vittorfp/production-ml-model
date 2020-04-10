@@ -15,20 +15,20 @@ services:
     volumes:
       - ./app:/usr/src/app
 
-  postgrees_db:
-    image: "postgres:latest"
-    container_name: "postgres"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mudar123}
-      PGDATA: /data/postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - default
-      - postgres
-    volumes:
-      - ./data/postgrees:/data/postgres
+#  postgrees_db:
+#    image: "postgres:latest"
+#    container_name: "postgres"
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mudar123}
+#      PGDATA: /data/postgres
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - default
+#      - postgres
+#    volumes:
+#      - ./data/postgrees:/data/postgres
 #
 #  pgadmin:
 #    container_name: pgadmin_container
@@ -48,5 +48,5 @@ services:
 networks:
   default:
     name: api
-  postgres:
-    driver: bridge
+#  postgres:
+#    driver: bridge
