@@ -1,22 +1,10 @@
 import pickle
-import numpy as np
-from sklearn.pipeline import Pipeline
-
-
-scale = pickle.load('scale.pkl')
-lr = pickle.load('model.pkl')
-
-model_pipeline = Pipeline([scale, lr])
 
 
 class InvoiceModel:
 
-    def __init__(self, lat, lon):
-        # validate if the point is in Campinas
+    def __init__(self):
+        self.model = pickle.load(open('./app/model/model_campifarma.pickle', 'rb'))
 
-        # query the data
-
-        self.X = np.array([lat, lon])
-
-    def predict(self):
-        return model_pipeline.predict(self.X)
+    def predict(self, x):
+        return self.model.predict(x)
