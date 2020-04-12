@@ -20,6 +20,7 @@ model = InvoiceModel(file='./app/model/model_campifarma.pickle')
 @app.route('/predict', methods=['GET'])
 def predict():
     input_data = validate_input(location_schema, dict(request.args))
+
     if isinstance(input_data, tuple):
         return input_data
 
