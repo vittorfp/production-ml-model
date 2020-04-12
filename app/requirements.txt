@@ -3,7 +3,8 @@ flask
 wheel
 pytest
 pytest-flask
-# psycopg2-binary
+pytest-mock
+psycopg2-binary
 shapely
 numpy
 scikit-learn

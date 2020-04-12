@@ -1,6 +1,7 @@
 import pandas as pd
 from collections import Counter
 from shapely.geometry import Point
+from app.repository.postgres_configuration import PostgresConnection
 
 
 class DataRepository:
@@ -10,24 +11,21 @@ class DataRepository:
         'minhas_lojas', 'agencia_bancaria', 'padaria', 'acougue', 'restaurante', 'correio', 'loterica'
     }
 
-    def __init__(self, file):
-        self.data = pd.read_csv(file)
+    def __init__(self):
+        self.db = PostgresConnection()
 
     def get_points_inside_isocota(self, isocota):
         min_lng, min_lat, max_lng, max_lat = isocota.bounds
 
         # cuts the square area
-        mask = (
-            self.data.latitude.between(min_lat, max_lat) &
-            self.data.longitude.between(min_lng, max_lng)
-        )
+        points = self.get_nearby_points(min_lng, min_lat, max_lng, max_lat)
 
         # then cuts the circle area
         return pd.DataFrame([
             row
-            for row in self.data.loc[mask].itertuples()
-            if Point(row.longitude, row.latitude).within(isocota)
-        ]).drop(columns=['Index'])
+            for row in points
+            if Point(row[2], row[1]).within(isocota)
+        ], columns=['id', 'latitude', 'longitude', 'tipo_POI'])
 
     def get_points_count(self, isocota):
         points = self.get_points_inside_isocota(isocota)
@@ -39,3 +37,13 @@ class DataRepository:
                 df_data[i] = 0
 
         return df_data[sorted(df_data.columns)]
+
+    def get_nearby_points(self, min_lng, min_lat, max_lng, max_lat):
+        sql = f"""
+            SELECT * 
+            FROM points_of_interest
+            WHERE 
+                latitude BETWEEN {min_lat} AND {max_lat} AND
+                longitude BETWEEN {min_lng} AND {max_lng}
+        """
+        return self.db.query(sql)

@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/predict?lat=-30&lon=-45",
+					"raw": "{{host}}/predict?lat=-22.76071731077701&lng=-46.97426370241312",
 					"host": [
 						"{{host}}"
 					],
@@ -21,13 +21,18 @@
 					"query": [
 						{
 							"key": "lat",
-							"value": "-30",
+							"value": "-22.76071731077701",
 							"description": "between -90 and 90"
 						},
 						{
-							"key": "lon",
-							"value": "-45",
+							"key": "lng",
+							"value": "-46.97426370241312",
 							"description": "between -180 and 180"
+						},
+						{
+							"key": null,
+							"value": null,
+							"disabled": true
 						}
 					]
 				}
