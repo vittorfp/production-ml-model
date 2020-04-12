@@ -2,18 +2,27 @@
 
 This code exposes a route to perform predictions with a (previously done) machine learning model.
 
-The Flask application accesses a PostgreSQL instance to obtain the necessary data give the prediction.
+The Flask application accesses a Postgres instance to obtain the necessary data give the prediction.
 
 ___
 ### Local deploy
 
-To build the container just run the following command on the root folder of the repo:
+The app is served through docker containers. The configurations are in the ``docker-compose.yml``
+file. Three containers will be set-up when the app is running:
+
+- The application: Running on port 5000 by default.
+- The Postgres Server,
+- The PG Admin web interface: Running on port 80 by default.
+
+If necessary some parameters can be set using environment variables (see ``docker-compose.yml``).  
+	 
+To run the app, just type the following command on the root folder of the repo:
 
 ```bash
 docker-compose up -d
-# or
+
+# or the following to force the container rebuild
 docker-compose up -d --build
-# to force the container rebuild
 ```
 
 To see the logs use the following:
@@ -25,9 +34,11 @@ ___
 ### Tests
 
 Automated tests were made to check sanity of the model in a wide range of inputs.
+The database connection is mocked (into a dummy output), so, there is no need to be with a database
+instance running. 
 
 Test cases:
-- ##### Aplication tests
+- ##### Application tests
 
 	- **Input completeness**: Checks if all the expected inputs were sent. If not, checks if the application has thrown 
 	the correct errors.
