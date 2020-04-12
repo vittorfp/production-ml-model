@@ -29,6 +29,8 @@ def test_input_completeness_4(client):
     """ Happy case (every parameter present) """
     response = client.get('/predict', query_string={'lng': -65, 'lat': -77})
     assert response.status_code != 422
+    assert response.status_code != 404
+
 
 
 def test_input_boundary_1(client):
@@ -59,24 +61,28 @@ def test_input_boundary_5(client):
     """ Lat in the boundary (upper) """
     response = client.get('/predict', query_string={'lng': -65, 'lat': 90})
     assert response.status_code != 422
+    assert response.status_code != 404
 
 
 def test_input_boundary_6(client):
     """ Lat in the boundary (lower) """
     response = client.get('/predict', query_string={'lng': -65, 'lat': -90})
     assert response.status_code != 422
+    assert response.status_code != 404
 
 
 def test_input_boundary_8(client):
     """ Lon in the boundary (lower) """
     response = client.get('/predict', query_string={'lng': -180, 'lat': -77})
     assert response.status_code != 422
+    assert response.status_code != 404
 
 
 def test_input_boundary_9(client):
     """ Lon in the boundary (upper) """
     response = client.get('/predict', query_string={'lng': 180, 'lat': -77})
     assert response.status_code != 422
+    assert response.status_code != 404
 
 
 def test_output_1(client):

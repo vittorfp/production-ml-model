@@ -21,12 +21,18 @@ def test_municipal_boundary_2(client):
 
 
 @pytest.mark.parametrize("index,case", test_cases.iterrows())
-def test_model_outputs_1(client, index, case):
-        response = client.get('/predict', query_string={'lat': case.latitude, 'lng': case.longitude})
-        assert response.status_code != 500
-        assert response.status_code == 200
-        assert response.json['latitude'] == case.latitude
-        assert response.json['longitude'] == case.longitude
-        assert response.json['n_grandes_concorrentes'] == case.concorrentes__grandes_redes
-        assert response.json['n_pequeno_varejista'] == case.concorrentes__pequeno_varejista
-        assert np.isclose(response.json['predicao'], case.response, atol=1e-4)
+def test_model_outputs_1(client, mocker, index, case):
+
+    count = pd.DataFrame(case).T.drop(columns=['Unnamed: 0', 'latitude', 'longitude', 'tipo_POI', 'response'])
+    count = count[sorted(count.columns)]
+    mocker.patch('app.repository.data_repository.DataRepository.get_points_count', return_value=count)
+
+    response = client.get('/predict', query_string={'lat': case.latitude, 'lng': case.longitude})
+
+    assert response.status_code != 500
+    assert response.status_code == 200
+    assert response.json['latitude'] == case.latitude
+    assert response.json['longitude'] == case.longitude
+    assert response.json['n_grandes_concorrentes'] == case.concorrentes__grandes_redes
+    assert response.json['n_pequeno_varejista'] == case.concorrentes__pequeno_varejista
+    assert np.isclose(response.json['predicao'], case.response, atol=1e-8)
